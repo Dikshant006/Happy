@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="gu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Diwali 🎆</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            /* overflow: hidden; */
+            /* background: black; */
+            color: white;
+        }
+
+        video.bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-box,
+        .card-box {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: 0.5s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: gold;
+        }
+
+        input {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            width: 80%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 25px;
+            border-radius: 8px;
+            background: linear-gradient(90deg, gold, orange);
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: black;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(90deg, orange, gold);
+        }
+
+        .card-box {
+            display: none;
+        }
+
+        .show {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Default styles (Desktop) */
+        .bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        input,
+        button {
+            width: 300px;
+            font-size: 1rem;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            .bg-video {
+                object-fit: cover;
+                /* Video scale properly */
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            input,
+            button {
+                width: 90%;
+                /* Auto adjust to screen */
+                font-size: 0.9rem;
+            }
+
+            .container,
+            .greeting {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Video -->
+    <video class="bg-video" autoplay muted loop>
+        <source src="Background video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Overlay -->
+    <div class="overlay">
+        <!-- Form -->
+        <div class="form-box" id="formBox">
+            <h1>✨ Happy Diwali ✨</h1>
+            <p>તમારું નામ દાખલ કરો:</p>
+            <input type="text" id="userName" placeholder="તમારું નામ લખો">
+            <br>
+            <button onclick="showCard()">શરૂ કરીએ</button>
+        </div>
+
+        <!-- Greeting Card -->
+        <div class="card-box" id="cardBox">
+            <h1 id="greetName"></h1>
+            <h2>🎇 શુભ દિવાળી અને નવું વર્ષ મુબારક 🎇</h2>
+            <p>તમારા જીવનમાં પ્રકાશ, ખુશી અને સમૃદ્ધિ ભરાઈ જાય ✨</p>
+            <br>
+            <button onclick="replay()">ફરીથી શરૂ કરો</button>
+            <audio id="bgMusic" src="assets/diwali-music.mp3"></audio>
+        </div>
+    </div>
+
+    <script>
+        const formBox = document.getElementById("formBox");
+        const cardBox = document.getElementById("cardBox");
+        const userName = document.getElementById("userName");
+        const greetName = document.getElementById("greetName");
+        const music = document.getElementById("bgMusic");
+
+        function showCard() {
+            const name = userName.value.trim();
+            if (name === "") {
+                alert("કૃપા કરીને તમારું નામ દાખલ કરો ✨");
+                return;
+            }
+
+            greetName.textContent = `🌟 Happy Diwali, ${name}! 🌟`;
+            formBox.style.display = "none";
+            cardBox.classList.add("show");
+            music.play().catch(() => console.log("User interaction required for autoplay"));
+        }
+
+        function replay() {
+            music.pause();
+            music.currentTime = 0;
+            cardBox.classList.remove("show");
+            formBox.style.display = "block";
+        }
+    </script>
+
+</body>
+
+</html>
